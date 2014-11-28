@@ -212,7 +212,7 @@ public:
 	    double rdeltaphi=Delta;
             double deltar=r-rproj;
 
-	    if (0&&fabs(Delta)<10.0&&fabs(deltar)<15.0) {
+	    if (residual&&fabs(Delta)<10.0&&fabs(deltar)<15.0) {
 	      static ofstream out("diskmatch.txt");
 	      out << aTracklet.r()<<" "<<aTracklet.z()<<" "<<r<<" "<<z<<" "
 		  <<Delta<<" "<<deltar<<endl;

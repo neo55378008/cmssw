@@ -11,6 +11,8 @@ using namespace std;
 #include "L1TStub.hh"
 #include "L1TTracklet.hh"
 
+bool residual;
+
 class L1TGeomBase{
 
   friend class L1TDisk;
