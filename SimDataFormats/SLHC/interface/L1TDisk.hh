@@ -67,7 +67,11 @@ public:
 
 	    double phi2=D->stubs_[jSector][j].phi();
 	    
-	    if (r1>60.0||r2>60.0) continue;
+	    //if (r1>60.0||r2>60.0) continue; //Skip 2S modules
+	    //if (r1<60.0&&r2>60.0) continue; //2S to PS
+	    //if (r1>60.0&&r2<60.0) continue; //PS to 2S
+	    //if (r1<60.0||r2<60.0) continue; //Skip PS modules
+	    //if((r1<60.0&&r2>60.0) || (r1>60.0&&r2<60.0)) continue; //PS and 2S (XNOR)
 
 	    double deltaphi=phi1-phi2;
 
@@ -256,7 +260,8 @@ public:
   }
 
 
-  void findBarrelMatches(L1TGeomBase* L, double phiSF){
+  //void findBarrelMatches(L1TGeomBase* L, double phiSF){ 
+  void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut1=0, double zcut1=0, double rphicut2=0, double zcut2=0){
 
     for(int iSector=0;iSector<NSector_;iSector++){
       for (unsigned int i=0;i<tracklets_[iSector].size();i++) {
@@ -301,6 +306,7 @@ public:
 	    
 	    double phiproj=phi0-asin(0.5*r*rinv);
 	    double zproj=z0+2*t*asin(0.5*r*rinv)/rinv;
+            //double rproj=2.0*sin(0.5*(z-z0)*rinv/t)/rinv;
 
 	    double deltaphi=phi-phiproj;
 	    //cout << "deltaphi phi phiproj:"<<deltaphi<<" "<<phi<<" "<<phiproj<<" "<<phi0<<" "<<asin(0.5*r*rinv)<<endl;
@@ -311,11 +317,29 @@ public:
 
 	    double rdeltaphi=r*deltaphi;
             double deltaz=z-zproj;
+            //double deltar=r-rproj;
+
+            if (residual&&fabs(rdeltaphi)<10.0&&fabs(deltaz)<15.0) {
+              static ofstream out("diskbarrelmatch.txt");
+              out << aTracklet.r()<<" "<<aTracklet.z()<<" "<<r<<" "<<z<<" "
+                  <<rdeltaphi<<" "<<deltaz<<endl;
+            }
 
 	    if (fabs(rdeltaphi)>0.1*phiSF) continue;
 	    if (fabs(deltaz)>5.0) continue; //LS modified from 0.5 to 5.0
 
 	    double dist=hypot(rdeltaphi/(0.1*phiSF),deltaz/5.0); //LS modified from 0.5 to 5.0
+
+	    if (r<60 && zcut1>0) {
+	      if (fabs(rdeltaphi)>rphicut1*phiSF && rphicut1>0) continue;
+	      if (fabs(deltaz)>zcut1 && zcut1>0) continue;
+	      dist=hypot(rdeltaphi/(rphicut1*phiSF),deltaz/zcut1);
+	    }
+	    else if(zcut2>0) {
+	      if (fabs(rdeltaphi)>rphicut2*phiSF && rphicut2>0) continue;
+	      if (fabs(deltaz)>zcut2 && zcut2>0) continue;
+	      dist=hypot(rdeltaphi/(rphicut2*phiSF),deltaz/zcut2);
+            }
 
 	    if (dist<bestdist) {
 	      bestdist=dist;
