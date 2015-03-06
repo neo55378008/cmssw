@@ -989,7 +989,7 @@
       B[3]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.5,0.3,10.0);
       B[3]->findBarrelMatches(L[1],phiWindowSF_,0.25,10.0,0.2,10.0);
       /***** 2S-2S *****/
-      [3]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0,0.3,10.0);
+      B[3]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0,0.3,10.0);
       B[3]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0,0.3,10.0);
       //matchtimer.stop();
       //fittimer.start();
