@@ -39,6 +39,8 @@ void L1TrackNtuplePlot(TString type) {
   bool doDetailedPlots = false; //turn on to make full set of plots
   bool makeCanvas = false; //make PDF file with all the plots
   bool makeC = true; //make C file
+  
+  type = "SingleElectron_" + type;
 
 
   // ----------------------------------------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ void L1TrackNtuplePlot(TString type) {
   TChain* tree = new TChain("L1TrackNtuple/eventTree");
 
   if (type=="test") tree->Add("test_TrkPerf.root");
-  else tree->Add("RootFiles/"+type+"_TrkPerf.root");
+  else tree->Add("RootFiles/"+type+"_Seed.root");
 
   if (tree->GetEntries() == 0) {
     cout << "File doesn't exist or is empty, returning..." << endl;
@@ -436,7 +438,7 @@ void L1TrackNtuplePlot(TString type) {
       if (tp_nmatch->at(it) < 1) continue;
 
       // use only tracks with min 4 stubs
-      if (matchtrk_nstub->at(it) < 4) continue;
+      /*if (matchtrk_nstub->at(it) < 4) continue;
       
       // fill chi2 & chi2/dof histograms before making chi2 cut
       h_2d_logchi2_eta    ->Fill(tp_eta->at(it), log(matchtrk_chi2->at(it)));
@@ -509,7 +511,7 @@ void L1TrackNtuplePlot(TString type) {
 
       // ----------------------------------------------------------------------------------------------------------------
       // cut on chi2
-      if (matchtrk_chi2->at(it) > 100.0) continue;
+      if (matchtrk_chi2->at(it) > 100.0) continue;*/
 
       
       // ----------------------------------------------------------------------------------------------------------------

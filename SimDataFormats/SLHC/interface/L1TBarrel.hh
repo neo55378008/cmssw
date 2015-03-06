@@ -421,7 +421,14 @@ public:
 
 	    double rdeltaphi=Delta;
             double deltar=r-rproj;
+            //double deltaz=z-zproj;
 
+            if (residual) {
+              cout<<"Producing Residuals"<<endl;
+              static ofstream out("barrelmatch.txt");
+              out << aTracklet.r()<<" "<<r<<" "<<rdeltaphi<<" "<<deltar
+                       <<endl;
+            }
 
 	    if (fabs(rdeltaphi)>0.2*phiSF) continue;
 	    if (fabs(deltar)>3.0) continue;

@@ -182,6 +182,8 @@ L1TrackProducer::L1TrackProducer(edm::ParameterSet const& iConfig) // :   config
 
   geometry_ = iConfig.getUntrackedParameter<string>("geometry","");
   phiWindowSF_ = iConfig.getUntrackedParameter<double>("phiWindowSF",1.0);
+  ptPrecision = iConfig.getUntrackedParameter<double>("ptPrecision",0.5);
+  residual = iConfig.getUntrackedParameter<bool>("residuals",false);
 }
 
 /////////////

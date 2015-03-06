@@ -224,6 +224,7 @@ void matchdisk(int layer) {
   // ----------------------------------------------------------------------------------  
 
   ifstream in("diskmatch.txt");
+  //ifstream in("littledisk0.txt");
   
   int count=0;
   
@@ -566,6 +567,42 @@ void matchdisk(int layer) {
   hist45->Draw();
   c4->cd(6);
   hist46->Draw();
+  
+/*  TString name;
+  if (L1L2) name = "matchdiskL1L2.root";
+  if (L2L3) name = "matchdiskL2L3.root";
+  if (L3L4) name = "matchdiskL3L4.root";
+  if (L4L5) name = "matchdiskL4L5.root";
+
+  TFile outfile = new TFile(name,"RECREATE");
+
+  hist11->Write();  
+  hist12->Write();  
+  hist13->Write();  
+  hist14->Write();  
+  hist15->Write();  
+  hist16->Write();  
+  hist21->Write();  
+  hist22->Write();  
+  hist23->Write();  
+  hist24->Write();  
+  hist25->Write();  
+  hist26->Write();  
+  hist31->Write();  
+  hist32->Write();  
+  hist33->Write();  
+  hist34->Write();  
+  hist35->Write();  
+  hist36->Write();  
+  hist41->Write();  
+  hist42->Write();  
+  hist43->Write();  
+  hist44->Write();  
+  hist45->Write();  
+  hist46->Write();  
+
+  outfile->Close()*/
+
   
   if (L1L2) {
     c1->Print("matchdiskPStoPS_L1L2.pdf");
