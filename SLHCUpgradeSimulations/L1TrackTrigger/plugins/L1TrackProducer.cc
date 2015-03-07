@@ -185,10 +185,8 @@ L1TrackProducer::L1TrackProducer(edm::ParameterSet const& iConfig) // :   config
 
   geometry_ = iConfig.getUntrackedParameter<string>("geometry","");
   phiWindowSF_ = iConfig.getUntrackedParameter<double>("phiWindowSF",1.0);
-<<<<<<< HEAD
   ptPrecision = iConfig.getUntrackedParameter<double>("ptPrecision",0.5);
   residual = iConfig.getUntrackedParameter<bool>("residuals",false);
-=======
 
   asciiEventOutName_ = iConfig.getUntrackedParameter<string>("asciiFileName","");
 
@@ -197,7 +195,6 @@ L1TrackProducer::L1TrackProducer(edm::ParameterSet const& iConfig) // :   config
     asciiEventOut_.open(asciiEventOutName_.c_str());
   }
 
->>>>>>> EmanuelPerez/TTI_62X_TrackTriggerObjects
 }
 
 /////////////
