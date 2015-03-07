@@ -261,7 +261,7 @@ public:
 
 
   //void findBarrelMatches(L1TGeomBase* L, double phiSF){ 
-  void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut1=0, double zcut1=0, double rphicut2=0, double zcut2=0){
+  void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut=0, double zcut=0){
 
     for(int iSector=0;iSector<NSector_;iSector++){
       for (unsigned int i=0;i<tracklets_[iSector].size();i++) {
@@ -330,15 +330,15 @@ public:
 
 	    double dist=hypot(rdeltaphi/(0.1*phiSF),deltaz/5.0); //LS modified from 0.5 to 5.0
 
-	    if (r<60 && zcut1>0) {
-	      if (fabs(rdeltaphi)>rphicut1*phiSF && rphicut1>0) continue;
-	      if (fabs(deltaz)>zcut1 && zcut1>0) continue;
-	      dist=hypot(rdeltaphi/(rphicut1*phiSF),deltaz/zcut1);
+	    if (r<60 && zcut>0) {
+	      if (fabs(rdeltaphi)>rphicut*phiSF && rphicut>0) continue;
+	      if (fabs(deltaz)>zcut && zcut>0) continue;
+	      dist=hypot(rdeltaphi/(rphicut*phiSF),deltaz/zcut);
 	    }
-	    else if(zcut2>0) {
-	      if (fabs(rdeltaphi)>rphicut2*phiSF && rphicut2>0) continue;
-	      if (fabs(deltaz)>zcut2 && zcut2>0) continue;
-	      dist=hypot(rdeltaphi/(rphicut2*phiSF),deltaz/zcut2);
+	    else if(zcut>0) {
+	      if (fabs(rdeltaphi)>rphicut*phiSF && rphicut>0) continue;
+	      if (fabs(deltaz)>zcut && zcut>0) continue;
+	      dist=hypot(rdeltaphi/(rphicut*phiSF),deltaz/zcut);
             }
 
 	    if (dist<bestdist) {
