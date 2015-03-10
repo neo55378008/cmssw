@@ -270,6 +270,7 @@ public:
 	double phi0=aTracklet.phi0();
 	double z0=aTracklet.z0();
 	double t=aTracklet.t();
+	double rtracklet=aTracklet.r();
 
 	double bestdist=2e30;
 	L1TStub tmp;
@@ -330,12 +331,12 @@ public:
 
 	    double dist=hypot(rdeltaphi/(0.1*phiSF),deltaz/5.0); //LS modified from 0.5 to 5.0*/
 
-	    if (r<60 && rcut1>0) {
+	    if (rtracklet<60 && rcut1>0) {
 	      if (fabs(rdeltaphi)>rphicut1*phiSF) continue;
 	      if (fabs(deltaz)>rcut1) continue;
 	      dist=hypot(rdeltaphi/(rphicut1*phiSF),deltaz/rcut1);
 	    }
-	    else if(r>=60 && rcut2>0) {
+	    else if(rtracklet>=60 && rcut2>0) {
 	      if (fabs(rdeltaphi)>rphicut2*phiSF) continue;
 	      if (fabs(deltaz)>rcut2) continue;
 	      dist=hypot(rdeltaphi/(rphicut2*phiSF),deltaz/rcut2);
