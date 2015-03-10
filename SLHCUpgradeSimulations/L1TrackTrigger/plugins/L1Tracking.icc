@@ -734,11 +734,18 @@
       F[0]->findTracklets(F[1]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut, double rcut);
+      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
+      //            double rphicut2, double rcut2);
       F[0]->findMatches(F[2],phiWindowSF_,0.05,0.5,0.05);
       F[0]->findMatches(F[3],phiWindowSF_,0.09,0.6,0.09);
       F[0]->findMatches(F[4],phiWindowSF_,0.1,1.0,0.1);
-      /***** PS-PS *****/
+      F[0]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.3,10.0);
+      F[0]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.5,0.3,10.0);
+      F[0]->findBarrelMatches(L[2],phiWindowSF_,0.025,2.5,0.3,10.0);
+      F[0]->findBarrelMatches(L[3],phiWindowSF_,0,0,0.3,10.0);
+      F[0]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      F[0]->findBarrelMatches(L[5],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       F[0]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       F[0]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.5);
       /*F[0]->findBarrelMatches(L[2],phiWindowSF_);
@@ -757,7 +764,7 @@
       //F[0]->findBarrelMatches(L[3],phiWindowSF_,0.3,9.0);
       F[0]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       F[0]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      F[0]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      F[0]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       F[0]->fitTracks();
@@ -771,11 +778,17 @@
       F[1]->findTracklets(F[2]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut, double zcut)
+      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
+      //            double rphicut2, double rcut2);
       F[1]->findMatches(F[0],phiWindowSF_,0.04,0.4,0.04);
       F[1]->findMatches(F[3],phiWindowSF_,0.05,0.5,0.05);
       F[1]->findMatches(F[4],phiWindowSF_,0.075,0.5,0.075);
-      /***** PS-PS *****/
+      F[1]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.05,10.0);
+      F[1]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.0,0.5,10.0);
+      F[1]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.3,10.0);
+      F[1]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      F[1]->findBarrelMatches(L[5],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       F[1]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       F[1]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.0);
       /***** PS-2S *****/
@@ -791,7 +804,7 @@
       //F[1]->findBarrelMatches(L[3],phiWindowSF_,0.2,7.0);
       F[1]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       F[1]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      F[1]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      F[1]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       F[1]->fitTracks();
@@ -809,7 +822,13 @@
       F[2]->findMatches(F[0],phiWindowSF_,0.05,0.5,0.05);
       F[2]->findMatches(F[1],phiWindowSF_,0.04,0.5,0.04);
       F[2]->findMatches(F[4],phiWindowSF_,0.05,0.5,0.05);
-      /***** PS-PS *****/
+      F[2]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.05,2.0);
+      F[2]->findBarrelMatches(L[1],phiWindowSF_,0.25,10.0,0.5,10.0);
+      F[2]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.25,10.0);
+      F[2]->findBarrelMatches(L[3],phiWindowSF_,0.2,10.0,0.3,10.0);
+      F[2]->findBarrelMatches(L[4],phiWindowSF_,0.2,10.0,0.3,10.0);
+      F[2]->findBarrelMatches(L[5],phiWindowSF_,0.2,10.0,0.3,10.0);
+      /*/***** PS-PS *****/
       F[2]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       /***** PS-2S *****/
       F[2]->findBarrelMatches(L[0],phiWindowSF_,0.05,2.0);
@@ -824,7 +843,7 @@
       /***** 2S-2S *****/
       F[2]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       F[2]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      F[2]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      F[2]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       F[2]->fitTracks();
@@ -842,7 +861,12 @@
       F[3]->findMatches(F[0],phiWindowSF_,0.05,0.5,0.05);
       F[3]->findMatches(F[1],phiWindowSF_,0.05,0.5,0.05);
       F[3]->findMatches(F[2],phiWindowSF_,0.05,0.5,0.05);
-      /***** PS-PS *****/
+      F[3]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.5,0.3,10.0);
+      F[3]->findBarrelMatches(L[1],phiWindowSF_,0,0,0.25,10.0);
+      //F[3]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.25,10.0);
+      F[3]->findBarrelMatches(L[3],phiWindowSF_,0,0,0.3,10.0);
+      F[3]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       F[3]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.5);
       /***** PS-2S *****/
       F[3]->findBarrelMatches(L[0],phiWindowSF_,0.05,8.0);
@@ -851,7 +875,7 @@
       F[3]->findBarrelMatches(L[1],phiWindowSF_,0.25,10.0);
       /***** 2S-2S *****/
       F[3]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
-      F[3]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
+      F[3]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       F[3]->fitTracks();
@@ -869,7 +893,13 @@
       B[0]->findMatches(B[2],phiWindowSF_,0.05,0.5,0.05);
       B[0]->findMatches(B[3],phiWindowSF_,0.08,0.6,0.08);
       B[0]->findMatches(B[4],phiWindowSF_,0.1,1.0,0.1);
-      /***** PS-PS *****/
+      B[0]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.3,10.0);
+      B[0]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.5,0.3,10.0);
+      B[0]->findBarrelMatches(L[2],phiWindowSF_,0.025,2.5,0.3,10.0);
+      B[0]->findBarrelMatches(L[3],phiWindowSF_,0,0,0.3,10.0);
+      B[0]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      B[0]->findBarrelMatches(L[5],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       B[0]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       B[0]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.5);
       /*B[0]->findBarrelMatches(L[2],phiWindowSF_);
@@ -888,7 +918,7 @@
       //B[0]->findBarrelMatches(L[3],phiWindowSF_,0.3,9.0);
       B[0]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       B[0]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      B[0]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      B[0]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       B[0]->fitTracks();
@@ -906,7 +936,12 @@
       B[1]->findMatches(B[0],phiWindowSF_,0.04,0.4,0.04);
       B[1]->findMatches(B[3],phiWindowSF_,0.05,0.5,0.05);
       B[1]->findMatches(B[4],phiWindowSF_,0.075,0.5,0.075);
-      /***** PS-PS *****/
+      B[1]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.05,10.0);
+      B[1]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.0,0.5,10.0);
+      B[1]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.3,10.0);
+      B[1]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      B[1]->findBarrelMatches(L[5],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       B[1]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       B[1]->findBarrelMatches(L[1],phiWindowSF_,0.025,1.0);
       /***** PS-2S *****/
@@ -922,7 +957,7 @@
       //B[1]->findBarrelMatches(L[3],phiWindowSF_,0.2,7.0);
       B[1]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       B[1]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      B[1]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      B[1]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       B[1]->fitTracks();
@@ -940,7 +975,13 @@
       B[2]->findMatches(B[0],phiWindowSF_,0.05,0.5,0.05);
       B[2]->findMatches(B[1],phiWindowSF_,0.04,0.5,0.04);
       B[2]->findMatches(B[4],phiWindowSF_,0.05,0.5,0.05);
-      /***** PS-PS *****/
+      B[2]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0,0.05,2.0);
+      B[2]->findBarrelMatches(L[1],phiWindowSF_,0.25,10.0,0.5,10.0);
+      B[2]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.25,10.0);
+      B[2]->findBarrelMatches(L[3],phiWindowSF_,0.2,10.0,0.3,10.0);
+      B[2]->findBarrelMatches(L[4],phiWindowSF_,0.2,10.0,0.3,10.0);
+      B[2]->findBarrelMatches(L[5],phiWindowSF_,0.2,10.0,0.3,10.0);
+      /*/***** PS-PS *****/
       B[2]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.0);
       /***** PS-2S *****/
       B[2]->findBarrelMatches(L[0],phiWindowSF_,0.05,2.0);
@@ -955,7 +996,7 @@
       /***** 2S-2S *****/
       B[2]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
       B[2]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
-      B[2]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);
+      B[2]->findBarrelMatches(L[5],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       B[2]->fitTracks();
@@ -973,7 +1014,12 @@
       B[3]->findMatches(B[0],phiWindowSF_,0.05,0.5,0.05);
       B[3]->findMatches(B[1],phiWindowSF_,0.05,0.5,0.05);
       B[3]->findMatches(B[2],phiWindowSF_,0.05,0.5,0.05);
-      /***** PS-PS *****/
+      B[3]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.5,0.3,10.0);
+      B[3]->findBarrelMatches(L[1],phiWindowSF_,0,0,0.25,10.0);
+      //B[3]->findBarrelMatches(L[2],phiWindowSF_,0,0,0.25,10.0);
+      B[3]->findBarrelMatches(L[3],phiWindowSF_,0,0,0.3,10.0);
+      B[3]->findBarrelMatches(L[4],phiWindowSF_,0,0,0.3,10.0);
+      /*/***** PS-PS *****/
       B[3]->findBarrelMatches(L[0],phiWindowSF_,0.025,2.5);
       /***** PS-2S *****/
       B[3]->findBarrelMatches(L[0],phiWindowSF_,0.05,8.0);
@@ -982,7 +1028,7 @@
       B[3]->findBarrelMatches(L[1],phiWindowSF_,0.25,10.0);
       /***** 2S-2S *****/
       B[3]->findBarrelMatches(L[3],phiWindowSF_,0.3,10.0);
-      B[3]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);
+      B[3]->findBarrelMatches(L[4],phiWindowSF_,0.3,10.0);*/
       //matchtimer.stop();
       //fittimer.start();
       B[3]->fitTracks();
