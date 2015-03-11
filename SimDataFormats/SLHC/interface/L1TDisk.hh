@@ -261,7 +261,7 @@ public:
 
 
   //void findBarrelMatches(L1TGeomBase* L, double phiSF){ 
-  void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut1=0, double rcut1=0, rphicut2=0, rcut2=0){
+  void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut1=0, double rcut1=0, double rphicut2=0, double rcut2=0){
 
     for(int iSector=0;iSector<NSector_;iSector++){
       for (unsigned int i=0;i<tracklets_[iSector].size();i++) {
@@ -330,6 +330,7 @@ public:
 	    if (fabs(deltaz)>5.0) continue; //LS modified from 0.5 to 5.0
 
 	    double dist=hypot(rdeltaphi/(0.1*phiSF),deltaz/5.0); //LS modified from 0.5 to 5.0*/
+	    double dist=0;
 
 	    if (rtracklet<60 && rcut1>0) {
 	      if (fabs(rdeltaphi)>rphicut1*phiSF) continue;
