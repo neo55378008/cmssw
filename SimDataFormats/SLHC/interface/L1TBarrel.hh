@@ -15,8 +15,6 @@ using namespace std;
 #include "L1TGeomBase.hh"
 #include "L1TDisk.hh"
 
-double ptPrecision;
-
 class L1TBarrel:public L1TGeomBase {
 
 private:
@@ -112,8 +110,8 @@ public:
 	    double pt1=stubs_[iSector][i].pt();
 	    double pt2=L->stubs_[jSector][j].pt();
 	    double pttracklet=0.3*3.8/(rinv*100);
-	    bool pass1=fabs(1.0/pt1-1.0/pttracklet)<ptPrecision;//0.5;
-	    bool pass2=fabs(1.0/pt2-1.0/pttracklet)<ptPrecision;//0.5;
+	    bool pass1=fabs(1.0/pt1-1.0/pttracklet)<0.5;
+	    bool pass2=fabs(1.0/pt2-1.0/pttracklet)<0.5;
 	    bool pass=pass1&&pass2;
 
 	    if (0) {
@@ -302,8 +300,7 @@ public:
 	    double rdeltaphi=r*deltaphi;
             double deltaz=z-zproj;
 
-	    if (residual) {
-	      cout<<"Producing Residuals"<<endl;
+	    if (0) {
 	      static ofstream out("barrelmatch.txt");
 	      out << aTracklet.r()<<" "<<r<<" "<<rdeltaphi<<" "<<deltaz
 		       <<endl;
@@ -421,14 +418,7 @@ public:
 
 	    double rdeltaphi=Delta;
             double deltar=r-rproj;
-            //double deltaz=z-zproj;
 
-            if (residual) {
-              cout<<"Producing Residuals"<<endl;
-              static ofstream out("barrelmatch.txt");
-              out << aTracklet.r()<<" "<<r<<" "<<rdeltaphi<<" "<<deltar
-                       <<endl;
-            }
 
 	    if (fabs(rdeltaphi)>0.2*phiSF) continue;
 	    if (fabs(deltar)>3.0) continue;
