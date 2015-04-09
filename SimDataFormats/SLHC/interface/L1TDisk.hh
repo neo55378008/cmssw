@@ -342,6 +342,8 @@ public:
 	      if (fabs(deltaz)>zcut2) continue;
 	      dist=hypot(rdeltaphi/(rphicut2*phiSF),deltaz/zcut2);
             }
+	    else
+              dist=hypot(rdeltaphi/(0.1*phiSF),deltaz/5.0); //LS modified from 0.5 to 5.0*/
 
 	    if (dist<bestdist) {
 	      bestdist=dist;
