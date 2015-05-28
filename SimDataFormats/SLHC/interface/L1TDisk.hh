@@ -67,7 +67,7 @@ public:
 
 	    double phi2=D->stubs_[jSector][j].phi();
 	    
-	    if (r1>60.0||r2>60.0) continue; //Skip 2S modules
+	    //if (r1>60.0||r2>60.0) continue; //Skip 2S modules
 	    //if (r1<60.0&&r2>60.0) continue; //2S to PS
 	    //if (r1>60.0&&r2<60.0) continue; //PS to 2S
 	    //if (r1<60.0||r2<60.0) continue; //Skip PS modules
@@ -219,7 +219,7 @@ public:
 	    if (residual&&fabs(Delta)<10.0&&fabs(deltar)<15.0) {
 	      static ofstream out("diskmatch.txt");
 	      out << aTracklet.r()<<" "<<aTracklet.z()<<" "<<r<<" "<<z<<" "
-		  <<Delta<<" "<<deltar<<endl;
+		  <<Delta<<" "<<deltar<<" "<<D->stubs_[jSector][0].pt()<<endl;
 	    }
 
 	    double dist=0.0;
@@ -323,7 +323,9 @@ public:
             if (residual&&fabs(rdeltaphi)<10.0&&fabs(deltaz)<15.0) {
               static ofstream out("diskbarrelmatch.txt");
               out << aTracklet.r()<<" "<<aTracklet.z()<<" "<<r<<" "<<z<<" "
-                  <<rdeltaphi<<" "<<deltaz<<endl;
+                  <<rdeltaphi<<" "<<deltaz
+                  <<" "<<L->stubs_[jSector][0].pt()
+                  <<endl;
             }
 
 	    /*if (fabs(rdeltaphi)>0.1*phiSF) continue;
