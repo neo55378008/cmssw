@@ -32,15 +32,16 @@ void mySmallText(Double_t x,Double_t y,Color_t color,char *text);
 
 // ----------------------------------------------------------------------------------------------------------------
 // Main script
-void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
+void L1TrackNtuplePlot(TString type) {
 
   SetPlotStyle();
 
   bool doDetailedPlots = false; //turn on to make full set of plots
+  bool doPixelTrack = false;
   bool makeCanvas = true; //make PDF file with all the plots
   bool makeC = true; //make C file
   
-  type = "SingleMuon_" + type;
+  //type = "SingleMuon_" + type;
 
   bool useTight = false; //use tight quality cut selection
 
@@ -78,7 +79,6 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   // define leafs & branches
 
   // L1 tracks
-  /*
   vector<float>* trk_pt;
   vector<float>* trk_eta;
   vector<float>* trk_phi;
@@ -88,7 +88,6 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   vector<int>*   trk_genuine;
   vector<int>*   trk_unknown;
   vector<int>*   trk_combinatoric;
-  */
 
   // tracking particles
   vector<float>* tp_pt;
@@ -98,7 +97,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   vector<float>* tp_d0;
   vector<int>*   tp_pdgid;
   vector<int>*   tp_nmatch;
-  vector<int>*   tp_npixmatch;
+  //vector<int>*   tp_npixmatch;
 
   // *L1 track* properties, for tracking particles matched to a L1 track
   vector<float>* matchtrk_pt;
@@ -117,17 +116,16 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   vector<float>* matchtrk5p_d0;
   vector<float>* matchtrk5p_chi2; 
 
-  /*
   TBranch* b_trk_pt;
   TBranch* b_trk_eta;
   TBranch* b_trk_phi;
   TBranch* b_trk_z0;
-  TBranch* b_trk_chi2; 
+  TBranch* b_trk_chi2;
+  //TBranch* b_trk_consistency;
   TBranch* b_trk_nstub;
   TBranch* b_trk_genuine;
   TBranch* b_trk_unknown;
   TBranch* b_trk_combinatoric;
-  */
 
   TBranch* b_tp_pt;
   TBranch* b_tp_eta;
@@ -136,7 +134,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   TBranch* b_tp_d0;
   TBranch* b_tp_pdgid;
   TBranch* b_tp_nmatch;
-  TBranch* b_tp_npixmatch;
+  //TBranch* b_tp_npixmatch;
 
   TBranch* b_matchtrk_pt;
   TBranch* b_matchtrk_eta;
@@ -153,18 +151,16 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   TBranch* b_matchtrk5p_d0;
   TBranch* b_matchtrk5p_chi2; 
 
-  /*
   trk_pt    = 0;
   trk_eta   = 0;
   trk_phi   = 0;
   trk_z0    = 0;
   trk_chi2  = 0; 
-  trk_consistency = 0; 
+  //trk_consistency = 0; 
   trk_nstub = 0;
   trk_genuine = 0;
   trk_unknown = 0;
   trk_combinatoric = 0;
-  */
 
   tp_pt  = 0;
   tp_eta = 0;
@@ -173,7 +169,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   tp_d0  = 0;
   tp_pdgid = 0;
   tp_nmatch = 0;
-  tp_npixmatch = 0;
+  //tp_npixmatch = 0;
 
   matchtrk_pt  = 0;
   matchtrk_eta = 0;
@@ -190,18 +186,16 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   matchtrk5p_d0  = 0;
   matchtrk5p_chi2  = 0; 
 
-  /*
   tree->SetBranchAddress("trk_pt",    &trk_pt,    &b_trk_pt);
   tree->SetBranchAddress("trk_eta",   &trk_eta,   &b_trk_eta);
   tree->SetBranchAddress("trk_phi",   &trk_phi,   &b_trk_phi);
   tree->SetBranchAddress("trk_z0",    &trk_z0,    &b_trk_z0);
   tree->SetBranchAddress("trk_chi2",  &trk_chi2,  &b_trk_chi2);
-  tree->SetBranchAddress("trk_consistency",  &trk_consistency,  &b_trk_consistency);
+  //tree->SetBranchAddress("trk_consistency",  &trk_consistency,  &b_trk_consistency);
   tree->SetBranchAddress("trk_nstub", &trk_nstub, &b_trk_nstub);
   tree->SetBranchAddress("trk_genuine",      &trk_genuine,      &b_trk_genuine);
   tree->SetBranchAddress("trk_unknown",      &trk_unknown,      &b_trk_unknown);
   tree->SetBranchAddress("trk_combinatoric", &trk_combinatoric, &b_trk_combinatoric);
-  */
 
   tree->SetBranchAddress("tp_pt",     &tp_pt,     &b_tp_pt);
   tree->SetBranchAddress("tp_eta",    &tp_eta,    &b_tp_eta);
@@ -210,7 +204,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   tree->SetBranchAddress("tp_d0",     &tp_d0,     &b_tp_d0);
   tree->SetBranchAddress("tp_pdgid",  &tp_pdgid,  &b_tp_pdgid);
   tree->SetBranchAddress("tp_nmatch", &tp_nmatch, &b_tp_nmatch);
-  tree->SetBranchAddress("tp_npixmatch", &tp_npixmatch, &b_tp_npixmatch);
+  //tree->SetBranchAddress("tp_npixmatch", &tp_npixmatch, &b_tp_npixmatch);
 
   tree->SetBranchAddress("matchtrk_pt",    &matchtrk_pt,    &b_matchtrk_pt);
   tree->SetBranchAddress("matchtrk_eta",   &matchtrk_eta,   &b_matchtrk_eta);
@@ -461,6 +455,9 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   }
 
   // 2D histograms
+  //TH1F* h_nstub_eta          = new TH1F("nstub_eta",     ";Tracking particle #eta; nstubs",                    50,-2.5,2.5);
+  TProfile* h_nstub_eta       = new TProfile("h_nstub_eta",     ";Tracking particle #eta; nstubs",                    50,-2.5,2.5);
+  TH2F* h_2d_nstub_eta       = new TH2F("h_2d_nstub_eta",     ";Tracking particle #eta; nstubs",                    50,-2.5,2.5,8,0,8);
   TH2F* h_2d_logchi2_eta     = new TH2F("2d_logchi2_eta",     ";Tracking particle #eta; log(#chi^{2})",                    50,-2.5,2.5, 100,-4.0,8.0);
   TH2F* h_2d_logchi2_dof_eta = new TH2F("2d_logchi2_cof_eta", ";Tracking particle #eta; log(#chi^{2} / D.O.F.)",           50,-2.5,2.5, 100,-4.0,8.0);
   TH2F* h_2d_dz0_eta         = new TH2F("2d_dz0_eta",         ";Tracking particle #eta; |#Deltaz_{0}| (L1 - sim) [cm]",    50,-2.5,2.5, 100, 0,  1.2);
@@ -527,8 +524,12 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
 
       
       // use only tracks with min 4 stubs
-      /*if (matchtrk_nstub->at(it) < 4) continue;
+      //if (matchtrk_nstub->at(it) < 4) continue;
       if (!type.Contains("Electron") && matchtrk_nstub->at(it) < 4) continue;
+      //h_nstub_eta ->SetBinContent(h_nstub_eta->FindBin(tp_eta->at(it)),
+                                  //matchtrk_nstub->at(it));
+      h_nstub_eta->Fill(tp_eta->at(it), matchtrk_nstub->at(it));
+      h_2d_nstub_eta->Fill(tp_eta->at(it), matchtrk_nstub->at(it));
       
       // fill chi2 & chi2/dof histograms before making chi2 cut
       h_2d_logchi2_eta    ->Fill(tp_eta->at(it), log(matchtrk_chi2->at(it)));
@@ -601,7 +602,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
 
       // ----------------------------------------------------------------------------------------------------------------
       // cut on chi2
-      if (matchtrk_chi2->at(it) > 100.0) continue;*/
+      //if (matchtrk_chi2->at(it) > 100.0) continue;
       if (!type.Contains("Electron") && matchtrk_chi2->at(it) > 100.0) continue;
      
       // use tight quality cut selection?
@@ -761,6 +762,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   
 
   //some printouts
+  /*
   float k = (float)n_match_eta1p0;
   float N = (float)n_all_eta1p0;
   cout << endl << "efficiency for |eta| < 1.0 = " << k/N*100.0 << " +- " << 1.0/N*sqrt(k*(1.0 - k/N))*100.0 << endl;
@@ -786,6 +788,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   N = (float) n10_all_eta1p0 + n10_all_eta1p75 + n10_all_eta2p5;
   k = (float) n10_match_eta1p0 + n10_match_eta1p75 + n10_match_eta2p5;
   cout << "combined efficiency for |eta| < 2.5, pt>10 GeV = " << k/N*100.0 << " +- " << 1.0/N*sqrt(k*(1.0 - k/N))*100.0 << endl << endl;
+  */
 
 
 
@@ -1069,6 +1072,7 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   if (useTight) type = type+"_tight";
 
   TFile* fout = new TFile("output_"+type+".root","recreate");
+  //TFile* fout = new TFile("output_"+type+"_noChi2-4stub.root","recreate");
 
 
   // -------------------------------------------------------------------------------------------
@@ -1078,17 +1082,19 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   char ctxt[500];
   TCanvas c;
 
+  h_nstub_eta->Write();
+  h_2d_nstub_eta->Write();
   h2_resVsPt_pt->Draw();
   h2_resVsPt_pt->Write();
-  c.Print("TrkPlots/"+type+"_resVsPt_pt.eps");
-  c.Print("TrkPlots/"+type+"_resVsPt_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf(","Title:resVsPt_pt"); // keep the pdf file open
   if (makeC) c.Print("TrkPlots/"+type+"_resVsPt_pt.C");
 
   h2_res5pVsPt_pt->Draw();
   h2_res5pVsPt_pt->Write();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_pt.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_pt");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_pt.C");
 
@@ -1096,34 +1102,34 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsPt_pt_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_C.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_C.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_pt_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_I.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_I.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_pt_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_F.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_pt_F.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_pt_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
   }
 
   h2_resVsPt_ptRel->Draw();
-  c.Print("TrkPlots/"+type+"_resVsPt_ptRel.eps");
-  c.Print("TrkPlots/"+type+"_resVsPt_ptRel.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsPt_ptRel");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsPt_ptRel.C");
 
   h2_res5pVsPt_ptRel->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_ptRel.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_ptRel.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_ptRel.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_ptRel.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_ptRel");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_ptRel.C");
 
@@ -1131,28 +1137,28 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsPt_ptRel_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_C.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_C.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_ptRel_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_I.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_I.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_ptRel_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_F.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_ptRel_F.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_ptRel_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
   }
 
   h2_mresVsPt_pt->Draw();
-  c.Print("TrkPlots/"+type+"_mresVsPt_pt.eps");
-  c.Print("TrkPlots/"+type+"_mresVsPt_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:mresVsPt_pt");
   if (makeC) c.Print("TrkPlots/"+type+"_mresVsPt_pt.C");
 
@@ -1160,22 +1166,22 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_mresVsPt_pt_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_C.eps");
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_C.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_mresVsPt_pt_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_I.eps");
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_I.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_mresVsPt_pt_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_F.eps");
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_F.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     // combined plot for the pt residual bias
@@ -1198,26 +1204,26 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     l->SetTextFont(42);
     l->Draw();	
 
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_comb.eps");
-    c.Print("TrkPlots/"+type+"_mresVsPt_pt_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsPt_pt_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
   }
   
   h2_resVsPt_z0->Draw();
-  c.Print("TrkPlots/"+type+"_resVsPt_z0.eps");
-  c.Print("TrkPlots/"+type+"_resVsPt_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsPt_z0");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsPt_z0.C");
 
   h2_res5pVsPt_z0->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_z0.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_z0");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_z0.C");
 
   h2_res5pVsPt_d0->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_d0.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_d0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_d0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_d0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_d0");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_d0.C");
 
@@ -1225,34 +1231,34 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsPt_z0_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.22,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_C.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_C.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_z0_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.22,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_I.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_I.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_z0_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.22,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_F.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_z0_F.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_z0_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
   }
 
   h2_resVsPt_phi->Draw();
-  c.Print("TrkPlots/"+type+"_resVsPt_phi.eps");
-  c.Print("TrkPlots/"+type+"_resVsPt_phi.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_phi.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_phi.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsPt_phi");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsPt_phi.C");
 
   h2_res5pVsPt_phi->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_phi.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_phi.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_phi.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_phi.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_phi");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_phi.C");
 
@@ -1260,34 +1266,34 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsPt_phi_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_C.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_C.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_phi_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_I.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_I.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
     
     h2_resVsPt_phi_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_F.eps");
-    c.Print("TrkPlots/"+type+"_resVsPt_phi_F.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsPt_phi_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf");
   }
     
   h2_resVsPt_eta->Draw();
-  c.Print("TrkPlots/"+type+"_resVsPt_eta.eps");
-  c.Print("TrkPlots/"+type+"_resVsPt_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsPt_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsPt_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsPt_eta.C");
 
   h2_res5pVsPt_eta->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsPt_eta.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsPt_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsPt_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsPt_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsPt_eta.C");
 
@@ -1295,8 +1301,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   h2_resVsEta_eta->Write();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_resVsEta_eta.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsEta_eta.C");
 
@@ -1304,8 +1310,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   h2_res5pVsEta_eta->Write();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5pVsEta_eta.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_eta.C");
 
@@ -1314,32 +1320,32 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsEta_eta_L->Write();
     sprintf(ctxt,"p_{T} < 5 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_L.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_L.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_L.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_resVsEta_eta_M->Draw();
     h2_resVsEta_eta_M->Write();
     sprintf(ctxt,"5 < p_{T} < 15 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_M.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_M.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_M.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_resVsEta_eta_H->Draw();
     h2_resVsEta_eta_H->Write();
     sprintf(ctxt,"p_{T} > 15 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_H.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_eta_H.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_eta_H.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
 
   h2_mresVsEta_eta->Draw();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_mresVsEta_eta.eps");
-  c.Print("TrkPlots/"+type+"_mresVsEta_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:mresVsEta_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_mresVsEta_eta.C");
 
@@ -1347,22 +1353,22 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_mresVsEta_eta_L->Draw();
     sprintf(ctxt,"p_{T} < 5 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_L.eps");
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_L.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_L.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_mresVsEta_eta_M->Draw();
     sprintf(ctxt,"5 < p_{T} < 15 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_M.eps");
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_M.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_M.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_mresVsEta_eta_H->Draw();
     sprintf(ctxt,"p_{T} > 15 GeV");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_H.eps");
-    c.Print("TrkPlots/"+type+"_mresVsEta_eta_H.png");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_mresVsEta_eta_H.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
 
@@ -1370,8 +1376,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   h2_resVsEta_z0->Write();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_resVsEta_z0.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_z0");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsEta_z0.C");
 
@@ -1380,40 +1386,40 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h2_resVsEta_z0_L->Write();
     sprintf(ctxt,"Full p_{T} range");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_L.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_L.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_L.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_resVsEta_z0_M->Draw();
     h2_resVsEta_z0_M->Write();
     sprintf(ctxt,"Full p_{T} range");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_M.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_M.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_M.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h2_resVsEta_z0_H->Draw();
     h2_resVsEta_z0_H->Write();
     sprintf(ctxt,"Full p_{T} range");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_H.eps");
-    c.Print("TrkPlots/"+type+"_resVsEta_z0_H.png");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_resVsEta_z0_H.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
 
   h2_res5pVsEta_z0->Draw();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5pVsEta_z0.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_z0");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_z0.C");
 
   h2_res5pVsEta_d0->Draw();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5pVsEta_d0.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_d0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_d0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_d0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_d0");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_d0.C");
 
@@ -1422,8 +1428,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   h2_resVsEta_phi->Write();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_resVsEta_phi.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_phi.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_phi.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_phi.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_phi");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsEta_phi.C");
 
@@ -1434,57 +1440,57 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   h2_res5pVsEta_phi->Draw();
   sprintf(ctxt,"Full p_{T} range");
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5pVsEta_phi.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_phi.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_phi.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_phi.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_phi");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_phi.C");
 
   h2_resVsEta_pt->Draw();
-  c.Print("TrkPlots/"+type+"_resVsEta_pt.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_pt.png");
+  h2_resVsEta_pt->Write();
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_pt");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsEta_pt.C");
 
   h2_res5pVsEta_pt->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsEta_pt.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_pt");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_pt.C");
 
   h2_res5pVsEta_pt->Draw();
-  h2_res5pVsEta_pt->Write();
-  c.Print("TrkPlots/"+type+"_res5pVsEta_pt.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_pt");
 
   h2_resVsEta_ptRel->Draw();
   h2_resVsEta_ptRel->Write();
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_ptRel");
   if (makeC) c.Print("TrkPlots/"+type+"_resVsEta_ptRel.C");
 
   h2_resVsEta_ptRel_L->Draw();
   h2_resVsEta_ptRel_L->Write();
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_L.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_L.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_L.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_L.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_ptRel_L");
 
   h2_resVsEta_ptRel_M->Draw();
   h2_resVsEta_ptRel_M->Write();
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_M.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_M.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_M.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_M.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_ptRel_M");
 
   h2_resVsEta_ptRel_H->Draw();
   h2_resVsEta_ptRel_H->Write();
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_H.eps");
-  c.Print("TrkPlots/"+type+"_resVsEta_ptRel_H.png");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_H.eps");
+  c.SaveAs("TrkPlots/"+type+"_resVsEta_ptRel_H.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:resVsEta_ptRel_H");
 
   h2_res5pVsEta_ptRel->Draw();
-  c.Print("TrkPlots/"+type+"_res5pVsEta_ptRel.eps");
-  c.Print("TrkPlots/"+type+"_res5pVsEta_ptRel.png");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_ptRel.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5pVsEta_ptRel.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5pVsEta_ptRel");
   if (makeC) c.Print("TrkPlots/"+type+"_res5pVsEta_ptRel.C");
 
@@ -1497,45 +1503,46 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
 
     // draw and save plots
     h_match_trk_nstub->Draw();
-    c.Print("TrkPlots/"+type+"_match_trk_nstub.png");
-    c.Print("TrkPlots/"+type+"_match_trk_nstub.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_nstub_C->Draw();
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_C.png");
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_C.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_C.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_nstub_I->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_I.png");
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_I.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_I.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_nstub_F->Draw();
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_F.png");
-    c.Print("TrkPlots/"+type+"_match_trk_nstub_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_F.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_nstub_F.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
     
   h_match_trk_chi2->Draw();
+  h_match_trk_chi2->Write();
   sprintf(ctxt,"|eta| < 2.5; Full p_{T} range");
   mySmallText(0.52,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_match_trk_chi2.png");
-  c.Print("TrkPlots/"+type+"_match_trk_chi2.eps");
+  c.SaveAs("TrkPlots/"+type+"_match_trk_chi2.png");
+  c.SaveAs("TrkPlots/"+type+"_match_trk_chi2.eps");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:match_trk_chi2");
-  c.Print("TrkPlots/"+type+"_match_trk_chi2.C");
+  c.SaveAs("TrkPlots/"+type+"_match_trk_chi2.C");
 
   h_match5p_trk_chi2->Draw();
   sprintf(ctxt,"|eta| < 2.5; Full p_{T} range");
   mySmallText(0.52,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_match5p_trk_chi2.png");
-  c.Print("TrkPlots/"+type+"_match5p_trk_chi2.eps");
+  c.SaveAs("TrkPlots/"+type+"_match5p_trk_chi2.png");
+  c.SaveAs("TrkPlots/"+type+"_match5p_trk_chi2.eps");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:match5p_trk_chi2");
   if (makeC) c.Print("TrkPlots/"+type+"_match5p_trk_chi2.C");
 
@@ -1543,80 +1550,81 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h_match_trk_chi2_C_L->Draw();
     sprintf(ctxt,"|eta| < 0.8; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_I_L->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_F_L->Draw();
     sprintf(ctxt,"|eta| > 1.6; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_C_M->Draw();
     sprintf(ctxt,"|eta| < 0.8; 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_I_M->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6, 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_F_M->Draw();
     sprintf(ctxt,"|eta| > 1.6; 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_C_H->Draw();
     sprintf(ctxt,"|eta| < 0.8; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_I_H->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_F_H->Draw();
     sprintf(ctxt,"|eta| > 1.6; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
     
   h_match_trk_chi2_dof->Draw();
+  h_match_trk_chi2_dof->Write();
   sprintf(ctxt,"|eta| < 2.5; Full p_{T} range");
   mySmallText(0.52,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_match_trk_chi2_dof.png");
-  c.Print("TrkPlots/"+type+"_match_trk_chi2_dof.eps");
+  c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof.png");
+  c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof.eps");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:match_trk_chi2_dof");
   if (makeC) c.Print("TrkPlots/"+type+"_match_trk_chi2_dof.C");
 
   h_match5p_trk_chi2_dof->Draw();
   sprintf(ctxt,"|eta| < 2.5; Full p_{T} range");
   mySmallText(0.52,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_match5p_trk_chi2_dof.png");
-  c.Print("TrkPlots/"+type+"_match5p_trk_chi2_dof.eps");
+  c.SaveAs("TrkPlots/"+type+"_match5p_trk_chi2_dof.png");
+  c.SaveAs("TrkPlots/"+type+"_match5p_trk_chi2_dof.eps");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:match5p_trk_chi2_dof");
   if (makeC) c.Print("TrkPlots/"+type+"_match5p_trk_chi2_dof.C");
 
@@ -1624,64 +1632,64 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     h_match_trk_chi2_dof_C_L->Draw();
     sprintf(ctxt,"|eta| < 0.8; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_I_L->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_F_L->Draw();
     sprintf(ctxt,"|eta| > 1.6; p_{T} < 5 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_L.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_L.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_L.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_L.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_C_M->Draw();
     sprintf(ctxt,"|eta| < 0.8; 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_I_M->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6, 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_F_M->Draw();
     sprintf(ctxt,"|eta| > 1.6; 5 < p_{T} < 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_M.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_M.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_M.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_M.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_C_H->Draw();
     sprintf(ctxt,"|eta| < 0.8; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_I_H->Draw();
     sprintf(ctxt,"0.8 < |eta| < 1.6; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_F_H->Draw();
     sprintf(ctxt,"|eta| > 1.6; p_{T} > 15 GeV");
     mySmallText(0.52,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_H.png");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_H.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_H.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_H.eps");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
    
@@ -1765,73 +1773,73 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   // draw and save plots
   h_eff_pt->Draw();
   h_eff_pt->Write();
-  c.Print("TrkPlots/"+type+"_eff_pt.eps");
-  c.Print("TrkPlots/"+type+"_eff_pt.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_pt.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_pt.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_pt");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_pt.C");
 
   if (type.Contains("SingleMu")) {
     h_eff_pt->GetYaxis()->SetRangeUser(0.8,1.01); // zoomed-in plot
-    c.Print("TrkPlots/"+type+"_eff_pt_zoom.eps");
-    c.Print("TrkPlots/"+type+"_eff_pt_zoom.png");
+    c.SaveAs("TrkPlots/"+type+"_eff_pt_zoom.eps");
+    c.SaveAs("TrkPlots/"+type+"_eff_pt_zoom.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_pt_zoom");
     if (makeC) c.Print("TrkPlots/"+type+"_eff_pt_zoom.C");
   }
 
   h_eff_pt_L->Draw();
   h_eff_pt_L->Write();
-  c.Print("TrkPlots/"+type+"_eff_pt_L.eps");
-  c.Print("TrkPlots/"+type+"_eff_pt_L.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_pt_L.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_pt_L.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_pt_L");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_pt_L.C");
   
   h_eff_eta->Draw();
   h_eff_eta->Write();
-  c.Print("TrkPlots/"+type+"_eff_eta.eps");
-  c.Print("TrkPlots/"+type+"_eff_eta.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_eta.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_eta.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_eta");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_eta.C");
   
   if (type.Contains("SingleMu")) {
     h_eff_eta->GetYaxis()->SetRangeUser(0.8,1.01); // zoomed-in plot
-    c.Print("TrkPlots/"+type+"_eff_eta_zoom.eps");
-    c.Print("TrkPlots/"+type+"_eff_eta_zoom.png");
+    c.SaveAs("TrkPlots/"+type+"_eff_eta_zoom.eps");
+    c.SaveAs("TrkPlots/"+type+"_eff_eta_zoom.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_eta_zoom");
     if (makeC) c.Print("TrkPlots/"+type+"_eff_eta_zoom.C");
   }
 
   h_eff_eta_H->Draw();
   h_eff_eta_H->Write();
-  c.Print("TrkPlots/"+type+"_eff_eta_H.eps");
-  c.Print("TrkPlots/"+type+"_eff_eta_H.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_eta_H.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_eta_H.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_eta_H");
 
   h_eff_phi->Draw();
   h_eff_phi->Write();
-  c.Print("TrkPlots/"+type+"_eff_phi.eps");
-  c.Print("TrkPlots/"+type+"_eff_phi.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_phi.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_phi.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_phi");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_phi.C");
   
   if (type.Contains("SingleMu")) {
     h_eff_phi->GetYaxis()->SetRangeUser(0.8,1.01); // zoomed-in plot
-    c.Print("TrkPlots/"+type+"_eff_phi_zoom.eps");
-    c.Print("TrkPlots/"+type+"_eff_phi_zoom.png");
+    c.SaveAs("TrkPlots/"+type+"_eff_phi_zoom.eps");
+    c.SaveAs("TrkPlots/"+type+"_eff_phi_zoom.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_phi_zoom");
     if (makeC) c.Print("TrkPlots/"+type+"_eff_phi_zoom.C");
   }
 
   h_eff_z0->Draw();
   h_eff_z0->Write();
-  c.Print("TrkPlots/"+type+"_eff_z0.eps");
-  c.Print("TrkPlots/"+type+"_eff_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_z0");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_z0.C");
 
   h_eff_d0->Draw();
   h_eff_d0->Write();
-  c.Print("TrkPlots/"+type+"_eff_d0.eps");
-  c.Print("TrkPlots/"+type+"_eff_d0.png");
+  c.SaveAs("TrkPlots/"+type+"_eff_d0.eps");
+  c.SaveAs("TrkPlots/"+type+"_eff_d0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:eff_d0");
   if (makeC) c.Print("TrkPlots/"+type+"_eff_d0.C");
 
@@ -1852,40 +1860,40 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     rms = h_res_pt->GetRMS();
     sprintf(ctxt,"RMS = %.4f",rms);
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_pt.eps");
-    c.Print("TrkPlots/"+type+"_res_pt.png");
+    c.SaveAs("TrkPlots/"+type+"_res_pt.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_pt.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_ptRel->Draw();
     rms = h_res_ptRel->GetRMS();
     sprintf(ctxt,"RMS = %.4f",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_ptRel.eps");
-    c.Print("TrkPlots/"+type+"_res_ptRel.png");
+    c.SaveAs("TrkPlots/"+type+"_res_ptRel.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_ptRel.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_eta->Draw();
     rms = h_res_eta->GetRMS();
     sprintf(ctxt,"RMS = %.3e",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_eta.eps");
-    c.Print("TrkPlots/"+type+"_res_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_res_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_phi->Draw();
     rms = h_res_phi->GetRMS();
     sprintf(ctxt,"RMS = %.3e",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_phi.eps");
-    c.Print("TrkPlots/"+type+"_res_phi.png");
+    c.SaveAs("TrkPlots/"+type+"_res_phi.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_phi.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_z0->Draw();
     rms = h_res_z0->GetRMS();
     sprintf(ctxt,"RMS = %.4f",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_z0.eps");
-    c.Print("TrkPlots/"+type+"_res_z0.png");
+    c.SaveAs("TrkPlots/"+type+"_res_z0.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_z0.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_z0_C->Draw();
@@ -1894,8 +1902,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     mySmallText(0.22,0.82,1,ctxt);
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.22,0.76,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_z0_C.eps");
-    c.Print("TrkPlots/"+type+"_res_z0_C.png");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_C.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_C.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_z0_I->Draw();
@@ -1904,8 +1912,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     mySmallText(0.22,0.82,1,ctxt);
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.22,0.76,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_z0_I.eps");
-    c.Print("TrkPlots/"+type+"_res_z0_I.png");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_I.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_I.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res_z0_F->Draw();
@@ -1914,40 +1922,40 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     mySmallText(0.22,0.82,1,ctxt);
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.22,0.76,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res_z0_F.eps");
-    c.Print("TrkPlots/"+type+"_res_z0_F.png");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_F.eps");
+    c.SaveAs("TrkPlots/"+type+"_res_z0_F.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
 
     h_res5p_pt->Draw();
     rms = h_res5p_pt->GetRMS();
     sprintf(ctxt,"RMS = %.4f",rms);
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res5p_pt.eps");
-    c.Print("TrkPlots/"+type+"_res5p_pt.png");
+    c.SaveAs("TrkPlots/"+type+"_res5p_pt.eps");
+    c.SaveAs("TrkPlots/"+type+"_res5p_pt.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res5p_ptRel->Draw();
     rms = h_res5p_ptRel->GetRMS();
     sprintf(ctxt,"RMS = %.4f",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res5p_ptRel.eps");
-    c.Print("TrkPlots/"+type+"_res5p_ptRel.png");
+    c.SaveAs("TrkPlots/"+type+"_res5p_ptRel.eps");
+    c.SaveAs("TrkPlots/"+type+"_res5p_ptRel.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res5p_eta->Draw();
     rms = h_res5p_eta->GetRMS();
     sprintf(ctxt,"RMS = %.3e",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res5p_eta.eps");
-    c.Print("TrkPlots/"+type+"_res5p_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_res5p_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_res5p_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_res5p_phi->Draw();
     rms = h_res5p_phi->GetRMS();
     sprintf(ctxt,"RMS = %.3e",rms);	
     mySmallText(0.22,0.82,1,ctxt);
-    c.Print("TrkPlots/"+type+"_res5p_phi.eps");
-    c.Print("TrkPlots/"+type+"_res5p_phi.png");
+    c.SaveAs("TrkPlots/"+type+"_res5p_phi.eps");
+    c.SaveAs("TrkPlots/"+type+"_res5p_phi.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
         
   }
@@ -1956,17 +1964,19 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
   rms = h_res5p_z0->GetRMS();
   sprintf(ctxt,"RMS = %.4f",rms);	
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5p_z0.eps");
-  c.Print("TrkPlots/"+type+"_res5p_z0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5p_z0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5p_z0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5p_z0");
   
   h_res5p_d0->Draw();
   rms = h_res5p_d0->GetRMS();
   sprintf(ctxt,"RMS = %.4f",rms);	
   mySmallText(0.22,0.82,1,ctxt);
-  c.Print("TrkPlots/"+type+"_res5p_d0.eps");
-  c.Print("TrkPlots/"+type+"_res5p_d0.png");
+  c.SaveAs("TrkPlots/"+type+"_res5p_d0.eps");
+  c.SaveAs("TrkPlots/"+type+"_res5p_d0.png");
   if (makeCanvas) c.Print(type+"_canvas.pdf","Title:res5p_d0");
+
+
   
  
   // ----------------------------------------------------------------------------------------------------------------
@@ -1977,33 +1987,33 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
 
     // draw and save plots
     h_2d_logchi2_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_logchi2_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_logchi2_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_logchi2_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_logchi2_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_2d_logchi2_dof_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_logchi2_dof_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_logchi2_dof_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_logchi2_dof_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_logchi2_dof_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_2d_dz0_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_dz0_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_dz0_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_dz0_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_dz0_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_2d_deta_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_deta_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_deta_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_deta_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_deta_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_2d_dphi_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_dphi_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_dphi_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_dphi_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_dphi_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_2d_dptRel_eta->Draw("colz");
-    c.Print("TrkPlots/"+type+"_2d_dptRel_eta.eps");
-    c.Print("TrkPlots/"+type+"_2d_dptRel_eta.png");
+    c.SaveAs("TrkPlots/"+type+"_2d_dptRel_eta.eps");
+    c.SaveAs("TrkPlots/"+type+"_2d_dptRel_eta.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
   }
     
@@ -2018,8 +2028,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     
     // draw and save plots
     h_match_trk_chi2->Draw();
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_log.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_log.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_log.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_log.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_C_H->Draw();
@@ -2040,8 +2050,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.66,0.6,1,ctxt);
 
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_C_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_C_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_I_H->Draw();
@@ -2052,8 +2062,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     lh->Draw();	
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.66,0.6,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_I_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_I_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_F_H->Draw();
@@ -2064,13 +2074,13 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     lh->Draw();	
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.66,0.6,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_F_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_F_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof->Draw();
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_log.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_log.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_log.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_log.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_C_H->Draw();
@@ -2081,8 +2091,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     lh->Draw();	
     sprintf(ctxt,"|eta| < 0.8");
     mySmallText(0.66,0.6,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_C_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_C_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_I_H->Draw();
@@ -2093,8 +2103,8 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     lh->Draw();	
     sprintf(ctxt,"0.8 < |eta| < 1.6");
     mySmallText(0.66,0.6,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_I_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_I_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf","Title:");
     
     h_match_trk_chi2_dof_F_H->Draw();
@@ -2105,13 +2115,13 @@ void L1TrackNtuplePlot(TString type, bool doPixelTrack) {
     lh->Draw();	
     sprintf(ctxt,"|eta| > 1.6");
     mySmallText(0.66,0.6,1,ctxt);
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_log_comb.eps");
-    c.Print("TrkPlots/"+type+"_match_trk_chi2_dof_F_log_comb.png");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_log_comb.eps");
+    c.SaveAs("TrkPlots/"+type+"_match_trk_chi2_dof_F_log_comb.png");
     if (makeCanvas) c.Print(type+"_canvas.pdf)","Title:"); // close the pdf file
   }
   else if (makeCanvas) {
     c.Clear();
-    c.Print(type+"_canvas.pdf]"); // close the pdf file
+    c.SaveAs(type+"_canvas.pdf]"); // close the pdf file
   }
 
 
