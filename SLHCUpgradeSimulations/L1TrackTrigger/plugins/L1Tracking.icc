@@ -7,7 +7,7 @@
 
 		   //L1  L2  L3  L4  L5  L6  D1  D2  D3  D4
     bool layers[] = { 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 }; //Enable layers
-    bool outer = true;
+    bool outer = false;
 
     L1TBarrel* L[10];
     L1TDisk* F[7];
@@ -156,7 +156,8 @@
 	if (hypot(stub.x(),stub.y())>60) sigmaz=1.44;  //HACK!!!
       }
 
-      L1TStub aStub(simtrackid,stub.diphi(),stub.diz(),layer,ladder,module,stub.x(),stub.y(),stub.z(),sigmax,sigmaz,stub.pt()*stub.ptsign());
+      //L1TStub aStub(simtrackid,stub.diphi(),stub.diz(),layer,ladder,module,stub.x(),stub.y(),stub.z(),sigmax,sigmaz,stub.pt()*stub.ptsign());
+      L1TStub aStub(simtrackid,stub.diphi(),stub.diz(),layer,ladder,module,stub.x(),stub.y(),stub.z(),sigmax,sigmaz,stub.pt());
 
       //cout << "layer ladder module:"<<layer<<" "<<ladder<<" "<<module
       //	   << " "<<aStub.r()<<" "<<aStub.phi()<<" "<<aStub.z()<<endl;
@@ -710,7 +711,7 @@
       L[4]->findMatches(L[1],phiWindowSF_,0.025,10.0); //5->10
       L[4]->findMatches(L[2],phiWindowSF_,0.03,8.0);   //8->8
       L[4]->findMatches(L[3],phiWindowSF_,0.05,6.0);  //10->6
-      /*
+      //FIXME
       L[4]->findMatches(F[0],phiWindowSF_);
       L[4]->findMatches(F[1],phiWindowSF_);
       L[4]->findMatches(F[2],phiWindowSF_);
@@ -721,7 +722,7 @@
       L[4]->findMatches(B[2],phiWindowSF_);
       L[4]->findMatches(B[3],phiWindowSF_);
       L[4]->findMatches(B[4],phiWindowSF_);
-      */
+      //FIXME
       //matchtimer.stop();
       //fittimer.start();
       L[4]->fitTracks();

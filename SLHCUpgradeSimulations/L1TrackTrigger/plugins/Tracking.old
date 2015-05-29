@@ -5,9 +5,6 @@
     int NBarrel=0;
     int NDisk=0;
 
-		   //L1  L2  L3  L4  L5  L6  D1  D2  D3  D4
-    bool layers[] = { 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 }; //Enable layers
-
     L1TBarrel* L[10];
     L1TDisk* F[7];
     L1TDisk* B[7];
@@ -583,7 +580,7 @@
     }
     if (mode==4) {
 
-    if(layers[0]){	 
+    if(1){	 
       //tracklettimer.start();
       L[0]->findTracklets(L[1]);
       L[0]->findTracklets(B[0],50.0);
@@ -612,7 +609,7 @@
       allTracks.addTracks(L[0]->allTracks());
     }      
     
-    if(layers[1]){
+    if(1){
       //tracklettimer.start();
       L[1]->findTracklets(L[2]);
       L[1]->findTracklets(B[0],70.0);
@@ -641,7 +638,7 @@
       allTracks.addTracks(L[1]->allTracks());
     }
 
-    if(layers[2]){
+    if(1){
       //tracklettimer.start();
       L[2]->findTracklets(L[3]);
       L[2]->findTracklets(B[0]);
@@ -670,7 +667,7 @@
       allTracks.addTracks(L[2]->allTracks());
     }
   
-    if(layers[3]){
+    if(1){
       //tracklettimer.start();
       L[3]->findTracklets(L[4]);
       L[3]->findTracklets(B[0]);
@@ -700,7 +697,7 @@
     }
 
     // TEST ADDING SEEDING BETWEEN LAYERS 5 AND 6
-    if(layers[4]){
+    if(1){
       //tracklettimer.start();
       L[4]->findTracklets(L[5]);
       //tracklettimer.stop();
@@ -729,7 +726,7 @@
       allTracks.addTracks(L[4]->allTracks());
     }
   
-    if(layers[6]){ //Disk 1
+    if(1){      
       //tracklettimer.start();
       F[0]->findTracklets(F[1]);
       //tracklettimer.stop();
@@ -751,19 +748,18 @@
       allTracks.addTracks(F[0]->allTracks());
     }      
 
-    if(layers[7]){ //Disk 2
+    if(1){
       //tracklettimer.start();
       F[1]->findTracklets(F[2]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
-      //            double rphicut2, double rcut2);
       F[1]->findMatches(F[0],phiWindowSF_,0.04,0.4,0.04);
       F[1]->findMatches(F[3],phiWindowSF_,0.05,0.5,0.05);
       F[1]->findMatches(F[4],phiWindowSF_,0.075,0.5,0.075);
       F[1]->findBarrelMatches(L[0],phiWindowSF_);
       F[1]->findBarrelMatches(L[1],phiWindowSF_);
       F[1]->findBarrelMatches(L[2],phiWindowSF_);
+      F[1]->findBarrelMatches(L[3],phiWindowSF_);
       F[1]->findBarrelMatches(L[4],phiWindowSF_);
       F[1]->findBarrelMatches(L[5],phiWindowSF_);
       //matchtimer.stop();
@@ -774,12 +770,11 @@
       allTracks.addTracks(F[1]->allTracks());
     }  
 
-    if(layers[8]){ //Disk 3
+    if(1){
       //tracklettimer.start();
       F[2]->findTracklets(F[3]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       F[2]->findMatches(F[0],phiWindowSF_,0.05,0.5,0.05);
       F[2]->findMatches(F[1],phiWindowSF_,0.04,0.5,0.04);
       F[2]->findMatches(F[4],phiWindowSF_,0.05,0.5,0.05);
@@ -797,12 +792,11 @@
       allTracks.addTracks(F[2]->allTracks());
     }
 
-    if(layers[9]){ //Disk 4
+    if(1){
       //tracklettimer.start();
       F[3]->findTracklets(F[4]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       F[3]->findMatches(F[0],phiWindowSF_,0.05,0.5,0.05);
       F[3]->findMatches(F[1],phiWindowSF_,0.05,0.5,0.05);
       F[3]->findMatches(F[2],phiWindowSF_,0.05,0.5,0.05);
@@ -820,12 +814,11 @@
       allTracks.addTracks(F[3]->allTracks());
     }
 
-    if(layers[6]){ //Disk 1
+    if(1){
       //tracklettimer.start();
       B[0]->findTracklets(B[1]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       B[0]->findMatches(B[2],phiWindowSF_,0.05,0.5,0.05);
       B[0]->findMatches(B[3],phiWindowSF_,0.08,0.6,0.08);
       B[0]->findMatches(B[4],phiWindowSF_,0.1,1.0,0.1);
@@ -843,18 +836,18 @@
       allTracks.addTracks(B[0]->allTracks());
     }      
 
-    if(layers[7]){ //Disk 2
+    if(1){
       //tracklettimer.start();
       B[1]->findTracklets(B[2]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       B[1]->findMatches(B[0],phiWindowSF_,0.04,0.4,0.04);
       B[1]->findMatches(B[3],phiWindowSF_,0.05,0.5,0.05);
       B[1]->findMatches(B[4],phiWindowSF_,0.075,0.5,0.075);
       B[1]->findBarrelMatches(L[0],phiWindowSF_);
       B[1]->findBarrelMatches(L[1],phiWindowSF_);
       B[1]->findBarrelMatches(L[2],phiWindowSF_);
+      B[1]->findBarrelMatches(L[3],phiWindowSF_);
       B[1]->findBarrelMatches(L[4],phiWindowSF_);
       B[1]->findBarrelMatches(L[5],phiWindowSF_);
       //matchtimer.stop();
@@ -865,12 +858,11 @@
       allTracks.addTracks(B[1]->allTracks());
     }
       
-    if(layers[8]){ //Disk 3
+    if(1){  
       //tracklettimer.start();
       B[2]->findTracklets(B[3]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       B[2]->findMatches(B[0],phiWindowSF_,0.05,0.5,0.05);
       B[2]->findMatches(B[1],phiWindowSF_,0.04,0.5,0.04);
       B[2]->findMatches(B[4],phiWindowSF_,0.05,0.5,0.05);
@@ -888,12 +880,11 @@
       allTracks.addTracks(B[2]->allTracks());
     }      
 
-    if(layers[9]){ //Disk 4
+    if(1){
       //tracklettimer.start();
       B[3]->findTracklets(B[4]);
       //tracklettimer.stop();
       //matchtimer.start();
-      //findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1,
       B[3]->findMatches(B[0],phiWindowSF_,0.05,0.5,0.05);
       B[3]->findMatches(B[1],phiWindowSF_,0.05,0.5,0.05);
       B[3]->findMatches(B[2],phiWindowSF_,0.05,0.5,0.05);
@@ -902,6 +893,7 @@
       B[3]->findBarrelMatches(L[2],phiWindowSF_);
       B[3]->findBarrelMatches(L[3],phiWindowSF_);
       B[3]->findBarrelMatches(L[4],phiWindowSF_);
+      B[3]->findBarrelMatches(L[5],phiWindowSF_);
       //matchtimer.stop();
       //fittimer.start();
       B[3]->fitTracks();

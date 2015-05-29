@@ -67,7 +67,7 @@ public:
 
 	    double phi2=D->stubs_[jSector][j].phi();
 	    
-	    //if (r1>60.0||r2>60.0) continue; //Skip 2S modules
+	    if (r1>60.0||r2>60.0) continue; //Skip 2S modules
 	    //if (r1<60.0&&r2>60.0) continue; //2S to PS
 	    //if (r1>60.0&&r2<60.0) continue; //PS to 2S
 	    //if (r1<60.0||r2<60.0) continue; //Skip PS modules
@@ -235,7 +235,7 @@ public:
 	      dist=hypot(rdeltaphi/(rphicut2*phiSF),deltar/rcut2);
 	    }
 
-	    /*
+	    /* 
 	    double pt1=D->stubs_[jSector][j].pt();
 	    double pttracklet=aTracklet.pt(3.8);
 	    bool pass1=fabs(1.0/pt1-1.0/pttracklet)<0.5;

@@ -182,6 +182,7 @@ L1TrackProducer::L1TrackProducer(edm::ParameterSet const& iConfig) // :   config
 
   geometry_ = iConfig.getUntrackedParameter<string>("geometry","");
   phiWindowSF_ = iConfig.getUntrackedParameter<double>("phiWindowSF",1.0);
+  residual = iConfig.getUntrackedParameter<bool>("residuals",false);
 }
 
 /////////////
@@ -349,6 +350,7 @@ void L1TrackProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
       if (iStack==999999) {
 	iStack=1000+iRing;
       }
+      //if (iStack==4) continue; // Simulate 5 layer geometry
 
 
       /// Get the Inner and Outer L1TkCluster
