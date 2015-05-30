@@ -357,6 +357,7 @@ void L1TrackProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 
       if (stub->getTriggerBend()<0.0) stubPt=-stubPt;
+      if (iStack==999999 && stubPosition.z()>0) stubPt=-stubPt;
 
       GlobalPoint stubPosition = theStackedGeometry->findGlobalPosition(stub);
 
