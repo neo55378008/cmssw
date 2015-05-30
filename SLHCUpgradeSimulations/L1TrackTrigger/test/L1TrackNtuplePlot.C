@@ -78,6 +78,7 @@ void L1TrackNtuplePlot(TString type) {
   // ----------------------------------------------------------------------------------------------------------------
   // define leafs & branches
 
+  /*
   // L1 tracks
   vector<float>* trk_pt;
   vector<float>* trk_eta;
@@ -88,6 +89,7 @@ void L1TrackNtuplePlot(TString type) {
   vector<int>*   trk_genuine;
   vector<int>*   trk_unknown;
   vector<int>*   trk_combinatoric;
+  */
 
   // tracking particles
   vector<float>* tp_pt;
@@ -151,6 +153,7 @@ void L1TrackNtuplePlot(TString type) {
   TBranch* b_matchtrk5p_d0;
   TBranch* b_matchtrk5p_chi2; 
 
+  /*
   trk_pt    = 0;
   trk_eta   = 0;
   trk_phi   = 0;
@@ -161,7 +164,7 @@ void L1TrackNtuplePlot(TString type) {
   trk_genuine = 0;
   trk_unknown = 0;
   trk_combinatoric = 0;
-
+  */
   tp_pt  = 0;
   tp_eta = 0;
   tp_phi = 0;
@@ -186,6 +189,7 @@ void L1TrackNtuplePlot(TString type) {
   matchtrk5p_d0  = 0;
   matchtrk5p_chi2  = 0; 
 
+  /*
   tree->SetBranchAddress("trk_pt",    &trk_pt,    &b_trk_pt);
   tree->SetBranchAddress("trk_eta",   &trk_eta,   &b_trk_eta);
   tree->SetBranchAddress("trk_phi",   &trk_phi,   &b_trk_phi);
@@ -196,6 +200,7 @@ void L1TrackNtuplePlot(TString type) {
   tree->SetBranchAddress("trk_genuine",      &trk_genuine,      &b_trk_genuine);
   tree->SetBranchAddress("trk_unknown",      &trk_unknown,      &b_trk_unknown);
   tree->SetBranchAddress("trk_combinatoric", &trk_combinatoric, &b_trk_combinatoric);
+  */
 
   tree->SetBranchAddress("tp_pt",     &tp_pt,     &b_tp_pt);
   tree->SetBranchAddress("tp_eta",    &tp_eta,    &b_tp_eta);
@@ -524,7 +529,6 @@ void L1TrackNtuplePlot(TString type) {
 
       
       // use only tracks with min 4 stubs
-      //if (matchtrk_nstub->at(it) < 4) continue;
       if (!type.Contains("Electron") && matchtrk_nstub->at(it) < 4) continue;
       //h_nstub_eta ->SetBinContent(h_nstub_eta->FindBin(tp_eta->at(it)),
                                   //matchtrk_nstub->at(it));
@@ -602,7 +606,6 @@ void L1TrackNtuplePlot(TString type) {
 
       // ----------------------------------------------------------------------------------------------------------------
       // cut on chi2
-      //if (matchtrk_chi2->at(it) > 100.0) continue;
       if (!type.Contains("Electron") && matchtrk_chi2->at(it) > 100.0) continue;
      
       // use tight quality cut selection?
@@ -762,7 +765,6 @@ void L1TrackNtuplePlot(TString type) {
   
 
   //some printouts
-  /*
   float k = (float)n_match_eta1p0;
   float N = (float)n_all_eta1p0;
   cout << endl << "efficiency for |eta| < 1.0 = " << k/N*100.0 << " +- " << 1.0/N*sqrt(k*(1.0 - k/N))*100.0 << endl;
@@ -788,7 +790,6 @@ void L1TrackNtuplePlot(TString type) {
   N = (float) n10_all_eta1p0 + n10_all_eta1p75 + n10_all_eta2p5;
   k = (float) n10_match_eta1p0 + n10_match_eta1p75 + n10_match_eta2p5;
   cout << "combined efficiency for |eta| < 2.5, pt>10 GeV = " << k/N*100.0 << " +- " << 1.0/N*sqrt(k*(1.0 - k/N))*100.0 << endl << endl;
-  */
 
 
 
