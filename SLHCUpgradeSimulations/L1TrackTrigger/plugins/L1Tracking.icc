@@ -7,7 +7,7 @@
 
 		   //L1  L2  L3  L4  L5  L6  D1  D2  D3  D4
     bool layers[] = { 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 }; //Enable layers
-    bool outer = false;
+    bool outer = true;
 
     L1TBarrel* L[10];
     L1TDisk* F[7];

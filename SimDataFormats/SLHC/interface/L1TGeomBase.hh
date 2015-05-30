@@ -12,6 +12,7 @@ using namespace std;
 #include "L1TTracklet.hh"
 
 bool residual;
+double ptPrecision;
 
 class L1TGeomBase{
 
