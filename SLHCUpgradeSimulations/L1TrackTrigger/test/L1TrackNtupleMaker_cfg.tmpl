@@ -85,6 +85,7 @@ process.TFileService = cms.Service("TFileService", fileName = cms.string(name), 
 #process.TTTracksFromPixelDigis.phiWindowSF = cms.untracked.double(2.0)
 
 process.TTTracksFromPixelDigis.residuals = cms.untracked.bool(False)
+process.TTTracksFromPixelDigis.outer = cms.untracked.bool(True)
 #process.TTTracksFromPixelDigis.ptPrecision = cms.untracked.double(PRECISION)
 
 process.TT_step = cms.Path(process.TrackTriggerTTTracks)

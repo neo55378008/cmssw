@@ -187,6 +187,7 @@ L1TrackProducer::L1TrackProducer(edm::ParameterSet const& iConfig) // :   config
   phiWindowSF_ = iConfig.getUntrackedParameter<double>("phiWindowSF",1.0);
   ptPrecision = iConfig.getUntrackedParameter<double>("ptPrecision",0.5);
   residual = iConfig.getUntrackedParameter<bool>("residuals",false);
+  outer = iConfig.getUntrackedParameter<bool>("outer",false);
 
   asciiEventOutName_ = iConfig.getUntrackedParameter<string>("asciiFileName","");
 
