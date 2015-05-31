@@ -712,6 +712,7 @@
       L[4]->findMatches(L[2],phiWindowSF_,0.03,8.0);   //8->8
       L[4]->findMatches(L[3],phiWindowSF_,0.05,6.0);  //10->6
       //FIXME
+      /*
       L[4]->findMatches(F[0],phiWindowSF_);
       L[4]->findMatches(F[1],phiWindowSF_);
       L[4]->findMatches(F[2],phiWindowSF_);
@@ -722,6 +723,7 @@
       L[4]->findMatches(B[2],phiWindowSF_);
       L[4]->findMatches(B[3],phiWindowSF_);
       L[4]->findMatches(B[4],phiWindowSF_);
+      */
       //FIXME
       //matchtimer.stop();
       //fittimer.start();
