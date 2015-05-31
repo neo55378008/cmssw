@@ -67,7 +67,7 @@ public:
 
 	    double phi2=D->stubs_[jSector][j].phi();
 	    
-	    //if ((r1>60.0||r2>60.0) && !outer) continue; //Skip 2S modules
+	    if ((r1>60.0||r2>60.0) && !outer) continue; //Skip 2S modules
 	    //if (r1<60.0&&r2>60.0) continue; //2S to PS
 	    //if (r1>60.0&&r2<60.0) continue; //PS to 2S
 	    //if (r1<60.0||r2<60.0) continue; //Skip PS modules
