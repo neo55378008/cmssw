@@ -67,7 +67,7 @@ public:
 
 	    double phi2=D->stubs_[jSector][j].phi();
 	    
-	    if ((r1>60.0||r2>60.0) && !outer) continue; //Skip 2S modules
+	    //if ((r1>60.0||r2>60.0) && !outer) continue; //Skip 2S modules
 	    //if (r1<60.0&&r2>60.0) continue; //2S to PS
 	    //if (r1>60.0&&r2<60.0) continue; //PS to 2S
 	    //if (r1<60.0||r2<60.0) continue; //Skip PS modules
@@ -143,6 +143,8 @@ public:
 
   void findMatches(L1TDisk* D, double phiSF, double rphicut1, double rcut1, 
 		   double rphicut2=0.2, double rcut2=3.0){
+    //rcut1 for PS modules (r<60)
+    //rcut2 for 2S modules (r>60)
 
 
     for(int iSector=0;iSector<NSector_;iSector++){
@@ -262,6 +264,8 @@ public:
 
   //void findBarrelMatches(L1TGeomBase* L, double phiSF){ 
   void findBarrelMatches(L1TGeomBase* L, double phiSF, double rphicut1=0, double zcut1=0, double rphicut2=0, double zcut2=0){
+    //zcut1 for PS modules (r<60)
+    //zcut2 for 2S modules (r>60)
 
     for(int iSector=0;iSector<NSector_;iSector++){
       for (unsigned int i=0;i<tracklets_[iSector].size();i++) {
