@@ -239,11 +239,13 @@ public:
     }
   }
 
-  void findMatches(L1TBarrel* L,double phiSF, double cutrphi, double cutrz){
+  void findMatches(L1TBarrel* L,double phiSF, double cutrphi_h, double cutrz, double cutrphi_l = 0.) {
 
     double scale=1.0;
+    double cutrphi;
 
-    cutrphi*=scale;
+    cutrphi_h*=scale;
+    cutrphi_l*=scale;
     cutrz*=scale;
     
 
@@ -254,6 +256,12 @@ public:
 	double phi0=aTracklet.phi0();
 	double z0=aTracklet.z0();
 	double t=aTracklet.t();
+        double pt=0.3*3.8/(rinv*100);
+
+        if(cutrphi_l > 0. && pt <= 5.)
+          cutrphi = cutrphi_l;
+        else
+          cutrphi = cutrphi_h;
 
 	L1TStub tmp;
 	double distbest=2e30;
@@ -300,7 +308,7 @@ public:
 	    double rdeltaphi=r*deltaphi;
             double deltaz=z-zproj;
 
-	    if (0) {
+	    if (residual) {
 	      static ofstream out("barrelmatch.txt");
 	      out << aTracklet.r()<<" "<<r<<" "<<rdeltaphi<<" "<<deltaz
 		       <<endl;
